@@ -9,12 +9,12 @@ public class ExchangeRatesEntity {
     Date date;
     float value;
 
-    public ExchangeRatesEntity(String request) {
+    public void parseJSON(String request, String targetCurrency) {
         JSONObject tmp = new JSONObject(request.toString());
 
         rates = tmp.getJSONObject("rates");
         base = tmp.getString("base");
-        value = rates.getFloat("RUB");
+        value = rates.getFloat(targetCurrency);
 
         java.util.Date utilDate = null;
         try {
