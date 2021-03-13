@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class Starter {
     String response;
     String baseCurrency = "USD";
-    String databaseURL = "jdbc:ucanaccess://D:/Programming/java/getDollarRate/story.accdb";
+    String databaseURL = "jdbc:ucanaccess://D:/Programming/java/projects/getDollarRate/story.accdb";
     String sql = "INSERT INTO EXCHANGE_RATES ([Check_date], [Ticker], [Rate]) VALUES (?, ?, ?)";
 
     public static void main(String[] args) {
@@ -25,7 +25,7 @@ public class Starter {
             while (true) {
                 this.getResponse(url);
 
-                ExchangeRatesEntity exchangeRatesEntity = new ExchangeRatesEntity(response.toString());
+                ExchangeRatesEntity exchangeRatesEntity = new ExchangeRatesEntity(response);
 
                 PreparedStatement preparedStatement = dbConnection.prepareStatement(sql);
 
