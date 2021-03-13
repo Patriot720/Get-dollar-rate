@@ -9,12 +9,12 @@ public class ExchangeRatesEntity {
     Date date;
     float value;
 
-    public void parseJSON(String request, String targetCurrency) {
+    public static ExchangeRatesEntity fromJSON(String request, String targetCurrency) {
         JSONObject tmp = new JSONObject(request.toString());
-
-        rates = tmp.getJSONObject("rates");
-        base = tmp.getString("base");
-        value = rates.getFloat(targetCurrency);
+        ExchangeRatesEntity entity = new ExchangeRatesEntity();
+        entity.rates = tmp.getJSONObject("rates");
+        entity.base = tmp.getString("base");
+        entity.value = entity.rates.getFloat(targetCurrency);
 
         java.util.Date utilDate = null;
         try {
@@ -22,6 +22,19 @@ public class ExchangeRatesEntity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        date = new java.sql.Date(utilDate.getTime());
+        entity.date = new java.sql.Date(utilDate.getTime());
+        return entity;
     }
+
+	public void setBase(String base) {
+        this.base = base;
+	}
+
+	public void setDate(Date date) {
+        this.date = date;
+	}
+
+	public void setValue(float value) {
+        this.value = value;
+	}
 }
